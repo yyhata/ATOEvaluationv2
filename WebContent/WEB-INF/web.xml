@@ -154,4 +154,24 @@
     <servlet-name>Xxxxx</servlet-name>
     <url-pattern>/Xxxxx</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SimilitySet</display-name>
+    <servlet-name>SimilitySet</servlet-name>
+    <servlet-class>pack.SimilitySet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SimilitySet</servlet-name>
+    <url-pattern>/SimilitySet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SimilityLevelSet</display-name>
+    <servlet-name>SimilityLevelSet</servlet-name>
+    <servlet-class>pack.SimilityLevelSet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SimilityLevelSet</servlet-name>
+    <url-pattern>/SimilityLevelSet</url-pattern>
+  </servlet-mapping>
 </web-app>
