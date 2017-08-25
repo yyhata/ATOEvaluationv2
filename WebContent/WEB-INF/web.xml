@@ -172,6 +172,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SimilityLevelSet</servlet-name>
-    <url-pattern>/SimilityLevelSet</url-pattern>
+    <url-pattern>/simility/SimilityLevelSet</url-pattern>
   </servlet-mapping>
 </web-app>
