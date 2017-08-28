@@ -53,8 +53,8 @@
 					<li class="first">
 						<p class="date"><a href="#">項目<b>1</b></a></p>
 						<h3>氏名 Name</h3>
-						<p><input type="text" name="lastname" id="user_lastname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="姓"><span class="complement_text">（全角）</span>
-						<input type="text" name="firstname" id="user_firstname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="名"><span class="complement_text">（全角）</span></p>
+						<p><input type="text" name="lastname" id="user_lastname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="姓"><span class="complement_text">（全角）</span></p>
+						<p>　　　　　　　<input type="text" name="firstname" id="user_firstname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="名"><span class="complement_text">（全角）</span></p>
 					</li>
 					<li class="first">
 						<p class="date"><a href="#">項目<b>2</b></a></p>

@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.siftscience.EventResponse;
-
 /**
  * Servlet implementation class OpenNewAccount
  */
@@ -43,23 +41,32 @@ public class OpenNewAccount extends HttpServlet {
 		Common common = new Common();
 		common.setAccountUpdateAttribute(request, response);
 
-		String JS = request.getParameter("JS");
-		//Sift Science API呼び出し
+		UserInfoBean userInfoBean = (UserInfoBean) request.getSession(true).getAttribute("userinfo");
 
-        SiftApiCall siftApiCall = new SiftApiCall();
-        UserInfoBean userInfoBean = (UserInfoBean) request.getSession(true).getAttribute("userinfo");
-		EventResponse scoreResponse = siftApiCall.sendCreateAccountEvent(userInfoBean, request);
+	//	common.sendGmail();
 
+		//siftかsimilityかを判断
+		String prefix = Util.judgeURI(request);
 
-		SimilityApiCall similityApiCall = new SimilityApiCall();
-		similityApiCall.sendCreateAccountEvent(userInfoBean);
+		if (prefix.equals("/simility")) {
+
+			SimilityApiCall similityApiCall = new SimilityApiCall();
+			similityApiCall.sendCreateAccountEvent(userInfoBean);
+
+		} else if (prefix.equals("/sift")) {
+
+			SiftApiCall siftApiCall = new SiftApiCall();
+			siftApiCall.sendCreateAccountEvent(userInfoBean, request);
+
+		}
 
         // 画面を表示
 		RequestDispatcher rd = null;
-		//siftかsimilityかを判断
-		String prefix = Util.judgeURI(request);
+
 		//遷移元の画面のJS有無によって、フォワード先を変える
-		if(JS.equals("true")) {
+		String JS = request.getParameter("JS");
+
+		if(JS!=null && JS.equals("true")) {
 			rd = ctx.getRequestDispatcher(prefix + "/MainPage.jsp");
 		} else {
 			rd = ctx.getRequestDispatcher(prefix + "/MainPage-noJS.jsp");

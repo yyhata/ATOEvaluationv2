@@ -31,11 +31,13 @@
  <!-- ■■■■ Simility Snippet ■■■■-->
 <script type="text/javascript">
  var similityContext = {
-     "customer_id": "5e295f6c-5fd2-11e7-907b-a6006ad3dba0",  // required; provided to you by simility during signup
-     "session_id": "your.page.session.id.variable",  // required; unique per user session, typically persistent by your backend
-     "user_id": "your.user.id.variable",  // recommended; user_id variable from your session, typically persistent on your backend
-     "event_types": "payment_form",  // required; Comma separated snake_case strings of action/event which is associated with this activity/view
-     "zone": "us" // If data regulatory compliance requires your data to be hosted in Europe datacenters, please specify zone as "eu"
+	     "customer_id": "5e295f6c-5fd2-11e7-907b-a6006ad3dba0",  // required; provided to you by simility during signup
+	     "session_id": <%= session.getId() %>,  // required; unique per user session, typically persistent by your backend
+	     "user_id": <%= userinfo.getUserid()%>,  // recommended; user_id variable from your session, typically persistent on your backend
+	     "event_types": "signup_load",  // required; Comma separated snake_case strings of action/event which is associated with this activity/view
+	     "zone": "us", // If data regulatory compliance requires your data to be hosted in Europe datacenters, please specify zone as "eu"
+
+	     "simility_lite_level": session.getAttribute("similityLiteLevel")
  };
 </script>
 <script type="application/javascript" src="https://cdn.simility.com/b.js"></script>
@@ -63,8 +65,8 @@
 					<li class="first">
 						<p class="date"><a href="#">項目<b>1</b></a></p>
 						<h3>氏名 Name</h3>
-						<p><input type="text" name="lastname" id="user_lastname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="姓"><span class="complement_text">（全角）</span>
-						<input type="text" name="firstname" id="user_firstname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="名"><span class="complement_text">（全角）</span></p>
+						<p><input type="text" name="lastname" id="user_lastname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="姓"><span class="complement_text">（全角）</span></p>
+						<p>　　　　　　　<input type="text" name="firstname" id="user_firstname" class="text z_ime_japanese input_text_26" maxlength="42" placeholder="名"><span class="complement_text">（全角）</span></p>
 					</li>
 					<li class="first">
 						<p class="date"><a href="#">項目<b>2</b></a></p>

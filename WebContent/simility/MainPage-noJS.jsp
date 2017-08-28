@@ -47,10 +47,8 @@ Released   : 20131014
 		String name = "";
 		if(userinfo.getName() != ""){
 			name = userinfo.getName();
-		} else if (userinfo.getUserid() != ""){
-			name = userinfo.getUserid();
 		} else {
-			name = "テストユーザー";
+			name = userinfo.getLastname() + userinfo.getFirstname();
 		}
 	%>
 

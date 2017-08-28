@@ -133,7 +133,7 @@ public class SimilityApiCall {
 	        printResponseContents(decision);
 
 	        //CSV出力
-	//        outputCSV(decision, responseTime);
+	        outputCSV(decision, responseTime);
 
 
         }catch (Exception e){
@@ -169,7 +169,7 @@ public class SimilityApiCall {
 	        printResponseContents(decision);
 
 	        //CSV出力
-	//        outputCSV(decision, responseTime);
+	        outputCSV(decision, responseTime);
 
 
         }catch (Exception e){

@@ -47,7 +47,6 @@ public class SimilityLevelSet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("similityLiteLevel", similityLiteLevel);
 
-
         // 画面を表示
 		RequestDispatcher rd = null;
 		rd = ctx.getRequestDispatcher("/simility/Login.jsp");

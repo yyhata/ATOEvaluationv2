@@ -52,35 +52,43 @@ public class UpdateProfile extends HttpServlet {
         request.setAttribute("updateMessage", "登録情報が更新されました！");
 
 
-		//新しい情報の取得
-		String newPassword = request.getParameter("password");
-		String newTransferLimit = request.getParameter("amountLimit");
+		//siftかsimilityかを判断
+		String prefix = Util.judgeURI(request);
 
+		if (prefix.equals("/simility")) {
 
-		SimilityApiCall similityApiCall = new SimilityApiCall();
+			SimilityApiCall similityApiCall = new SimilityApiCall();
 
-		//Passwordの変更があった場合、APIコール
-		if (!oldPassword.equals(newPassword)) {
+			//新しい情報の取得
+			String newPassword = request.getParameter("password");
+			String newTransferLimit = request.getParameter("amountLimit");
 
-			similityApiCall.sendPasswordChangeEvent(userInfoBean, oldPassword);
+			//Passwordの変更があった場合、APIコール
+			if (!oldPassword.equals(newPassword)) {
+
+				System.out.println("password変更");
+				similityApiCall.sendPasswordChangeEvent(userInfoBean, oldPassword);
+			}
+
+			//送金限度額の変更があった場合、APIコール
+			if (!oldTransferLimit.equals(newTransferLimit)) {
+
+				System.out.println("limit変更");
+				similityApiCall.sendLimitChangeEvent(userInfoBean, oldTransferLimit);
+			}
+
+		} else if (prefix.equals("/sift")) {
+
+			//Sift Science API呼び出し
+	        SiftApiCall siftApiCall = new SiftApiCall();
+			siftApiCall.sendUpdateAccountEvent(userInfoBean, request);
+
 		}
-
-		//送金限度額の変更があった場合、APIコール
-		if (!oldTransferLimit.equals(newTransferLimit)) {
-
-			similityApiCall.sendLimitChangeEvent(userInfoBean, oldTransferLimit);
-		}
-
-		//Sift Science API呼び出し
-        SiftApiCall siftApiCall = new SiftApiCall();
-		boolean apiResult = siftApiCall.sendUpdateAccountEvent(userInfoBean, request);
-
 
         // 画面を表示
 		RequestDispatcher rd = null;
 		String JS = request.getParameter("JS");
-		//siftかsimilityかを判断
-		String prefix = Util.judgeURI(request);
+
 		//遷移元の画面のJS有無によって、フォワード先を変える
 		if(JS.equals("true")) {
 			rd = ctx.getRequestDispatcher(prefix + "/ChangeProfile.jsp");
@@ -89,13 +97,11 @@ public class UpdateProfile extends HttpServlet {
 		}
 
         rd.forward(request, response);
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

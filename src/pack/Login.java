@@ -44,29 +44,31 @@ public class Login extends HttpServlet {
 		Common common = new Common();
 		common.setLoginAttribute(request, response);
 
+		UserInfoBean userInfoBean = (UserInfoBean) request.getSession(true).getAttribute("userinfo");
+
 	//	common.sendGmail();
 
-
-		String JS = request.getParameter("JS");
-		//Sift Science API呼び出し
-
-		SiftApiCall siftApiCall = new SiftApiCall();
-		UserInfoBean userInfoBean = (UserInfoBean) request.getSession(true).getAttribute("userinfo");
-		boolean apiResult = siftApiCall.sendLoginEvent(userInfoBean, request);
-
-		SimilityApiCall similityApiCall = new SimilityApiCall();
-		similityApiCall.sendLoginEvent(userInfoBean);
-
-
-        // 画面を表示
-		RequestDispatcher rd = null;
 		//siftかsimilityかを判断
 		String prefix = Util.judgeURI(request);
 
-		System.out.println("prefix = " + prefix);
+		if (prefix.equals("/simility")) {
 
+			SimilityApiCall similityApiCall = new SimilityApiCall();
+			similityApiCall.sendLoginEvent(userInfoBean);
+
+		} else if (prefix.equals("/sift")) {
+
+			SiftApiCall siftApiCall = new SiftApiCall();
+			siftApiCall.sendLoginEvent(userInfoBean, request);
+
+		}
+
+        // 画面を表示
+		RequestDispatcher rd = null;
 
 		//遷移元の画面のJS有無によって、フォワード先を変える
+		String JS = request.getParameter("JS");
+
 		if(JS!=null && JS.equals("true")) {
 			rd = ctx.getRequestDispatcher(prefix + "/MainPage.jsp");
 		} else {

@@ -34,6 +34,7 @@ Released   : 20131014
 		message = request.getAttribute("updateMessage").toString();
 	}
 
+
 %>
 
 </head>
@@ -41,11 +42,13 @@ Released   : 20131014
  <!-- ■■■■ Simility Snippet ■■■■-->
 <script type="text/javascript">
  var similityContext = {
-     "customer_id": "5e295f6c-5fd2-11e7-907b-a6006ad3dba0",  // required; provided to you by simility during signup
-     "session_id": "your.page.session.id.variable",  // required; unique per user session, typically persistent by your backend
-     "user_id": "your.user.id.variable",  // recommended; user_id variable from your session, typically persistent on your backend
-     "event_types": "payment_form",  // required; Comma separated snake_case strings of action/event which is associated with this activity/view
-     "zone": "us" // If data regulatory compliance requires your data to be hosted in Europe datacenters, please specify zone as "eu"
+	     "customer_id": "5e295f6c-5fd2-11e7-907b-a6006ad3dba0",  // required; provided to you by simility during signup
+	     "session_id": <%= session.getId() %>,  // required; unique per user session, typically persistent by your backend
+	     "user_id": <%= userinfo.getUserid()%>,  // recommended; user_id variable from your session, typically persistent on your backend
+	     "event_types": "profile_change_load",  // required; Comma separated snake_case strings of action/event which is associated with this activity/view
+	     "zone": "us", // If data regulatory compliance requires your data to be hosted in Europe datacenters, please specify zone as "eu"
+
+	     "simility_lite_level": session.getAttribute("similityLiteLevel")
  };
 </script>
 <script type="application/javascript" src="https://cdn.simility.com/b.js"></script>
@@ -75,7 +78,8 @@ Released   : 20131014
 					<li class="first">
 						<p class="date"><a href="#">項目<b>1</b></a></p>
 						<h3>氏名 Name</h3>
-						<p><%=userinfo.getName() %> <input type="hidden" name="lastname" value=<%=userinfo.getName() %>><input type="hidden" name="firstname" value=<%=userinfo.getName() %>></p>
+						<p><%=userinfo.getLastname() %><%=userinfo.getFirstname() %>
+						<input type="hidden" name="lastname" value=<%=userinfo.getLastname() %>><input type="hidden" name="firstname" value=<%=userinfo.getFirstname() %>></p>
 					</li>
 					<li class="first">
 						<p class="date"><a href="#">項目<b>2</b></a></p>

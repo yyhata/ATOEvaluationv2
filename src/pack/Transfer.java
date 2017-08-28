@@ -40,6 +40,44 @@ public class Transfer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
+        Common common = new Common();
+		common.setTransferAttribute(request, response);
+
+        request.setAttribute("updateMessage", "送金完了しました！");
+
+		UserInfoBean userInfoBean = (UserInfoBean) request.getSession(true).getAttribute("userinfo");
+        TransferBean transferBean = (TransferBean) request.getAttribute("transfer");
+
+
+		//siftかsimilityかを判断
+		String prefix = Util.judgeURI(request);
+
+		if (prefix.equals("/simility")) {
+
+			SimilityApiCall similityApiCall = new SimilityApiCall();
+	        similityApiCall.sendTransferEvent(userInfoBean, transferBean);
+
+		} else if (prefix.equals("/sift")) {
+
+			SiftApiCall siftApiCall = new SiftApiCall();
+	        siftApiCall.sendTransferEvent(userInfoBean, transferBean, request);
+
+		}
+
+        // 画面を表示
+		RequestDispatcher rd = null;
+
+		//遷移元の画面のJS有無によって、フォワード先を変える
+		String JS = request.getParameter("JS");
+
+		if(request.getParameter("JS").equals("true")) {
+			rd = ctx.getRequestDispatcher(prefix + "/Transfer.jsp");
+		} else {
+			rd = ctx.getRequestDispatcher(prefix + "/Transfer-noJS.jsp");
+		}
+        rd.forward(request, response);
+
+        /*
 		Common common = new Common();
 		common.setTransferAttribute(request, response);
 
@@ -67,7 +105,7 @@ public class Transfer extends HttpServlet {
 		} else {
 			rd = ctx.getRequestDispatcher(prefix + "/Transfer-noJS.jsp");
 		}
-        rd.forward(request, response);
+        rd.forward(request, response);*/
 	}
 
 	/**

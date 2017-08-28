@@ -37,7 +37,7 @@ Released   : 20131014
      "customer_id": "5e295f6c-5fd2-11e7-907b-a6006ad3dba0",  // required; provided to you by simility during signup
      "session_id": <%= session.getId() %>,  // required; unique per user session, typically persistent by your backend
      "user_id": <%= userinfo.getUserid()%>,  // recommended; user_id variable from your session, typically persistent on your backend
-     "event_types": "payment_form",  // required; Comma separated snake_case strings of action/event which is associated with this activity/view
+     "event_types": "login_load",  // required; Comma separated snake_case strings of action/event which is associated with this activity/view
      "zone": "us", // If data regulatory compliance requires your data to be hosted in Europe datacenters, please specify zone as "eu"
 
      "simility_lite_level": session.getAttribute("similityLiteLevel")
@@ -70,6 +70,7 @@ Released   : 20131014
 			<form action="Login" method="post" name="LoginForm"">
 			<input type="hidden" name="JS" value="true">
 		    	<h3>IDをお持ちの方はこちら</h3>
+
 			    <p>User ID</p>
 			    <input type="text" name="userID" id="userID" value="" maxlength="22" tabIndex="1" autocomplete="off">
 			    <p>Password</p>
