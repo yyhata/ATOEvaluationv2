@@ -290,6 +290,7 @@ public class SimilityApiCall {
 
 	            } else {
 	                System.out.println("No valid response: " + responseCode);
+
 	            }
 
 	        } catch (IOException e) {
@@ -332,15 +333,24 @@ public class SimilityApiCall {
 
 		CSVOutputBean csvOutputBean = new CSVOutputBean();
 
-		try {
-
-			csvOutputBean.setUserid(decision.getString("id"));
-			csvOutputBean.setAccountTakeoverScore((decision.getString("score")));
-			csvOutputBean.setEventName(decision.getString("entity"));
+		if (decision == null) {
+			csvOutputBean.setUserid("unknown user");
+			csvOutputBean.setAccountTakeoverScore("");
+			csvOutputBean.setEventName("unknown event");
 			csvOutputBean.setWaitTime(responseTime);
 
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} else {
+
+			try {
+
+				csvOutputBean.setUserid(decision.getString("id"));
+				csvOutputBean.setAccountTakeoverScore((decision.getString("score")));
+				csvOutputBean.setEventName(decision.getString("entity"));
+				csvOutputBean.setWaitTime(responseTime);
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
 
 		Common common = new Common();

@@ -137,7 +137,7 @@ Released   : 20131014
 					</li>
 				</ul>
 				<br/>
-				<a href="MainPage.jsp" class="button">Back</a>　　　<a href="" class="button"><input type="submit" value="　更新 Update　" style="background-color:transparent; color:white; border:0"></a>
+				<a href="MainPage.jsp" class="button">Back</a>　　　<a href="#" class="button"><input type="submit" value="　更新 Update　" style="background-color:transparent; color:white; border:0"></a>
 			</div>
 		</form>
 	</div>
